@@ -1,0 +1,10 @@
+{
+    "JAVASCRIPT" : {
+        "imports" : [
+            "const syncRequest = require('sync-request');"
+        ],
+        "libraries" : [
+            "packages/node/"
+        ]
+    }
+}
