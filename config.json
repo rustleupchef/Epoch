@@ -1,7 +1,9 @@
 {
     "JAVASCRIPT" : {
         "imports" : [
-            "const syncRequest = require('sync-request');"
+            "const syncRequest = require('sync-request');",
+            "const { JSDOM } = require('jsdom');",
+            "process.loadEnvFile();"
         ],
         "libraries" : [
             "packages/node/"
