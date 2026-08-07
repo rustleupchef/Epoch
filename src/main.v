@@ -1,10 +1,14 @@
 static func<void> main() {
     string[] headlines = NewsAPI();
-    for (int i = 0; i < headlines.Length; i++) {
-        print(headlines[i]);
+    string[] stories = HackerNews();
+
+    string[] texts = [..headlines, ..stories];
+    for (int i = 0; i < texts.Length; i++) {
+        print(texts[i]);
     }
-    HackerNews();
 }
+
+static tooth<float[,]>
 
 static tooth<string[]> NewsAPI() language("javascript") => |
     const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.key}`;
@@ -28,17 +32,18 @@ static tooth<string[]> NewsAPI() language("javascript") => |
     return [];
 |
 
-static tooth<void> HackerNews() language("javascript") => hacker_news
+static tooth<string[]> HackerNews() language("javascript") => hacker_news
     const topStoriesRes = syncRequest('GET', 'https://hacker-news.firebaseio.com/v0/topstories.json');
     const storyIds = JSON.parse(topStoriesRes.getBody('utf8'))
-
-    console.log('--- Hacker News Top Stories ---');
     
+    const stories = [];
     storyIds.forEach(id => {
         const itemRes = syncRequest('GET', `https://hacker-news.firebaseio.com/v0/item/${id}.json`);
         const item = JSON.parse(itemRes.getBody('utf8'));
-        console.log(`- [${item.score} points] ${item.title} (${item.url || 'No URL'})`);
+        stories.push(item.title);
     });
+
+    return stories;
 hacker_news
 
 static tooth<void> print(string text) language("C") => |
