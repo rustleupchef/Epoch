@@ -8,5 +8,16 @@
         "libraries" : [
             "packages/node/"
         ]
+    },
+    "PYTHON" : {
+        "imports" : [
+            "from sentence_transformers import SentenceTransformer",
+            "from tqdm import tqdm",
+            "import json",
+            "import os",
+            "os.environ[\"TQDM_MONITOR\"] = \"1\"",
+            "tqdm.monitor_interval = 0"
+        ],
+        "libraries" : []
     }
 }

@@ -3,12 +3,15 @@ static func<void> main() {
     string[] stories = HackerNews();
 
     string[] texts = [..headlines, ..stories];
-    for (int i = 0; i < texts.Length; i++) {
-        print(texts[i]);
-    }
+
+    float[][] embeddings = generateEmbeddings(texts);
 }
 
-static tooth<float[,]>
+static tooth<float[][]> generateEmbeddings(string[] texts) language("python") => {
+    model = SentenceTransformer("all-MiniLM-L6-v2")
+    embeddings = model.encode(list(texts), show_progress_bar=False);
+    return embeddings.tolist();
+}
 
 static tooth<string[]> NewsAPI() language("javascript") => |
     const url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.key}`;
@@ -46,8 +49,6 @@ static tooth<string[]> HackerNews() language("javascript") => hacker_news
     return stories;
 hacker_news
 
-static tooth<void> print(string text) language("C") => |
-    if (text != NULL) {
-        printf("%s\n", text);
-    }
+static tooth<void> print(string text) language("CSHARP") => |
+    Console.WriteLine(text);
 |
