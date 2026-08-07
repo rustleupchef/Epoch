@@ -19,5 +19,11 @@
             "tqdm.monitor_interval = 0"
         ],
         "libraries" : []
+    },
+    "C" : {
+        "imports" : [
+            "#include <math.h>"
+        ],
+        "libraries" : []
     }
 }
